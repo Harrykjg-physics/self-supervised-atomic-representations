@@ -12,7 +12,7 @@ from torch_geometric.data import InMemoryDataset
 from torch_geometric.data import Batch
 from itertools import repeat, product, chain
 
-from .data import *
+from .data_pred import *
 
 
 class CIF_Cry_Dataset(InMemoryDataset):

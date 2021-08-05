@@ -269,7 +269,7 @@ class CIF_Dataset(Dataset):
         self.normalizer = norm_obj
         self.normalization = normalization
         self.full_data = part_data
-        self.ari = AtomCustomJSONInitializer(self.root_dir + '/atom_init.json')
+        self.ari = AtomCustomJSONInitializer(self.root_dir + 'raw/atom_init.json')
         self.gdf = GaussianDistance(dmin=dmin, dmax=self.radius, step=step)
         self.encoder_elem = ELEM_Encoder()
         self.update_root = None
@@ -280,7 +280,7 @@ class CIF_Dataset(Dataset):
     @functools.lru_cache(maxsize=None)  # Cache loaded structures
     def __getitem__(self, idx):
         cif_id, target = self.full_data.iloc[idx]
-        crystal = Structure.from_file(os.path.join(self.root_dir, str(cif_id) + '.cif'))
+        crystal = Structure.from_file(os.path.join(self.root_dir, 'raw/' + str(cif_id) + '.cif'))
 
         atom_fea = np.vstack([self.ari.get_atom_fea(crystal[i].specie.number) for i in range(len(crystal))])
         atom_fea = torch.Tensor(atom_fea)

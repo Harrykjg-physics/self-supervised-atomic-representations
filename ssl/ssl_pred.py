@@ -12,7 +12,7 @@ from cgcnn.model import CGCNN
 from cgcnn.model import CGCNN_pred
 from cgcnn.util import MaskAtom
 from cgcnn.dataloader import DataLoaderMasking
-from cgcnn.CIFDATA import CIF_Cry_Dataset
+from cgcnn.CIFDATA_pred import CIF_Cry_Dataset
 from cgcnn.my_logging import *
 
 criterion = nn.CrossEntropyLoss()

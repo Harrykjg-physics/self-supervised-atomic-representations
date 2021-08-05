@@ -43,5 +43,29 @@ Once trained, you will get `loss_avg.npy` and `acc_avg.npy` files, which record 
 
 The trained model is saved as `cgcnn_pretrained.pth` file
 
-## Generate atomic representations using self-supervised training
+## Generate multiscale atomic representations using trained GNN
 
+you can generate atomic representations of a specified dataset using a self-supervised trained GNN:
+
+```bash
+cd ssl
+python get_sl_emb.py  root  --lth_emb "01"  --input_model_file pretrained_model_dir
+```
+
+The generated atomic representations are saved as python dictionary file named `sl_01_embedding_dict.npy`
+
+Here the argumment `lth_emb` specifies the scale of your atomic representations, possible choices are ["0", "1", ...,"5","01", "012", ..., "012345"]
+
+"0" stands for initial embeddings, "1" stands for the first embedding and "012" stands for the concatenation of initial, first and second embedding
+
+`root` dir saves the machine learning dataset you are interested in, the structure of root dir is:
+
+```
+├── id_prop.csv
+├── atom_init.json
+├── id0.cif
+├── id1.cif
+├── ...
+```
+
+`input_model_file` specifies the path of your pretrained GNN
