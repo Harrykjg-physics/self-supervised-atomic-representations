@@ -29,6 +29,7 @@ parser.add_argument('--input_model_file', type=str, default='', help='filename t
 parser.add_argument('--lth_emb', type=str, default='01', choices=["0", "1", "2", "3", "4", "5", "01", "012",
                                                                   "0123", "01234", "012345"],
                     help='generate embeddings under lth convolutional layer(default:01)')
+parser.add_argument('--partial_csv', type=str, default=None, help='the path to the csv file with specified atoms')
 
 args = parser.parse_args(sys.argv[1:])
 
@@ -39,6 +40,15 @@ all_atom_embedding = {}
 # gpu_id = 0
 # device = torch.device(f'cuda:{gpu_id}' if torch.cuda.is_available() else 'cpu')
 device = 'cpu'
+
+if args.partial_csv is not None:
+    with open(args.partial_csv) as f:
+        reader = csv.reader(f)
+        id_prop = [row for row in reader]
+        id = []
+        for i in range(len(id_prop)):
+            id.append(id_prop[i][0])
+
 
 dataset = pd.read_csv(f'{args.root}/id_prop.csv', names=['material_ids', 'label'])
 CRYSTAL_DATA = CIF_Dataset(dataset, root_dir=args.root)
@@ -112,9 +122,19 @@ for data in loader:
             list1 = [atom_embedding[i][atom_idx] for i in range(args.num_layer + 1)]
             uni_atom_name = str(batch_cif_ids[index]) + '_' + batch_atom_name[atom_idx]
             if len(args.lth_emb) == 1:
-                all_atom_embedding[uni_atom_name] = list1[int(args.lth_emb)]
+                tmp = list1[int(args.lth_emb)]
+                if args.partial_csv is None:
+                    all_atom_embedding[uni_atom_name] = tmp.detach().numpy()
+                else:
+                    if uni_atom_name in id:
+                        all_atom_embedding[uni_atom_name] = tmp.detach().numpy()
             else:
-                all_atom_embedding[uni_atom_name] = torch.cat([list1[i] for i in range(len(args.lth_emb))])
+                tmp = torch.cat([list1[i] for i in range(len(args.lth_emb))])
+                if args.partial_csv is None:
+                    all_atom_embedding[uni_atom_name] = tmp.detach().numpy()
+                else:
+                    if uni_atom_name in id:
+                        all_atom_embedding[uni_atom_name] = tmp.detach().numpy()
 
 if args.model_type == 'cgcnn':
     np.save('sl_' + str(args.lth_emb) + '_embedding_dict.npy', all_atom_embedding)

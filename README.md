@@ -52,7 +52,13 @@ cd ssl
 python get_sl_emb.py  root  --lth_emb "01"  --input_model_file pretrained_model_dir
 ```
 
-The generated atomic representations are saved as python dictionary file named `sl_01_embedding_dict.npy`
+The generated atomic representations are saved as `sl_01_embedding_dict.npy`, you can read the npy file as python dictionary `emb_dict` thruogh:
+
+```
+emb_dict = np.load("sl_01_embedding_dict.npy", allow_pickle=True)
+```
+
+the key of the dictionary , i.e. the atom of material,  are named as : `cif_id + elemental_type + atomic_number + idx`, for example, 9011998_Si_14_4
 
 Here the argumment `lth_emb` specifies the scale of your atomic representations, possible choices are ["0", "1", ...,"5","01", "012", ..., "012345"]
 
@@ -69,3 +75,21 @@ Here the argumment `lth_emb` specifies the scale of your atomic representations,
 ```
 
 `input_model_file` specifies the path of your pretrained GNN
+
+if you only want to generate some atomic representations, such as those with no-zero magnetic moments, you can specify `partial_csv` arguments:
+
+```bash
+python get_sl_emb.py  root  --lth_emb "01"  --input_model_file pretrained_model_dir --partial_csv`  xx.csv
+```
+
+where `csv` file contains the atoms you are interested in
+
+## Generate multiscale material representations using trained GNN
+
+Similarly, you can generate multi-scale material representations using:
+
+```bash
+python get_sl_emb_mat.py  root  --lth_emb "01"  --input_model_file pretrained_model_dir
+```
+
+The generated atomic representations are saved as `sl_cgcnn_mat_01embedding_dict.npy`
