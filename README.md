@@ -55,7 +55,7 @@ python get_sl_emb.py  root  --lth_emb "01"  --input_model_file pretrained_model_
 The generated atomic representations are saved as `sl_01_embedding_dict.npy`, you can read the npy file as python dictionary `emb_dict` thruogh:
 
 ```
-emb_dict = np.load("sl_01_embedding_dict.npy", allow_pickle=True)
+emb_dict = np.load("sl_01_embedding_dict.npy", allow_pickle=True).item()
 ```
 
 the key of the dictionary , i.e. the atom of material,  are named as : `cif_id + elemental_type + atomic_number + idx`, for example, 9011998_Si_14_4
@@ -106,5 +106,7 @@ python cg_gs.py  --root1 root1_dir --root2 roo2_dir
 Here `root1_dir` is the path to your `id_prop.csv` file, while `root2_dir` is the path to your atomic representations, that is , `.npy file`
 
 You will get 3 files after training finished, `cv_results` which records the results of your k-fold grid search; `y_results` which records the results of your test set; 
-`best_dict` which records best parameters of your grid search
+`best_dict` which records best hyperparameters of your grid search
+
+By default, we use 10-fold cross-validation to choose the best hyperparameters.
 
