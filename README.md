@@ -74,7 +74,7 @@ Here the argumment `lth_emb` specifies the scale of your atomic representations,
 ├── ...
 ```
 
-`input_model_file` specifies the path of your pretrained GNN
+`input_model_file` specifies the path of your pretrained GNN, you can use the pretrained model in `ssl/pretrained` folder with predcitive or contrastive self-supervised learning
 
 if you only want to generate some atomic representations, such as those with no-zero magnetic moments, you can specify `partial_csv` arguments:
 

@@ -80,7 +80,7 @@ if args.model_type == 'cgcnn':
         from collections import OrderedDict
 
         new_state_dict = OrderedDict()
-        for k, v in pretrained_model_stat_dict.items():
+        for k, v in pretrained_model_stat_dict['model_state_dict'].items():
             string = k.split(".")
             if string[0] == 'gnn':
                 name = string[1]
