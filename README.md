@@ -92,4 +92,19 @@ Similarly, you can generate multi-scale material representations using:
 python get_sl_emb_mat.py  root  --lth_emb "01"  --input_model_file pretrained_model_dir
 ```
 
-The generated atomic representations are saved as `sl_cgcnn_mat_01embedding_dict.npy`
+The generated atomic representations are saved as `sl_cgcnn_mat_01_embedding_dict.npy`
+
+## Machine learning pipeline
+
+We can perform a kernel ridge regression on specified property by:
+
+ ```bash
+cd ml
+python cg_gs.py  --root1 root1_dir --root2 roo2_dir
+```
+
+Here `root1_dir` is the path to your `id_prop.csv` file, while `root2_dir` is the path to your atomic representations, that is , `.npy file`
+
+You will get 3 files after training finished, `cv_results` which records the results of your k-fold grid search; `y_results` which records the results of your test set; 
+`best_dict` which records best parameters of your grid search
+
