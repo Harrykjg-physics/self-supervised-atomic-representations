@@ -1,15 +1,5 @@
 # Self-supervised atomic representations for material discovery
 
-## Table of Contents
-
-- [Prerequisites ](#Prerequisites)
-- [Train your GNN model with self-supervised learning ](#Train your GNN model with self-supervised learning)
-- [Generate multiscale atomic representations using trained GNN](#Generate multiscale atomic representations using trained GNN)
-- [Generate OFM atomic representations](#Generate OFM atomic representations)
-- [Generate multiscale material representations using trained GNN](#Generate multiscale material representations using trained GNN)
-- [Generate other material representations](#Generate other material representations)
-- [Machine learning pipeline](#Machine learning pipeline)
-
 ##  Prerequisites
 
 - [PyTorch](http://pytorch.org)
