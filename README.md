@@ -84,21 +84,55 @@ python get_sl_emb.py  root  --lth_emb "01"  --input_model_file pretrained_model_
 
 where `csv` file contains the atoms you are interested in
 
+## Generate OFM atomic representations
+
+To do comparisons, you can also easily generate OFM local atomic representations of material dataset by:
+
+```bash
+cd ssl
+python get_ofm.py  root  
+```
+
+You will get a `OFM.npy` file that stores the atomic representations of the material dataset.
+
+Also if you are only interested in a centain portion of atoms:
+
+```bash
+cd ssl
+python get_ofm.py  root --partial_csv  xx.csv
+```
+
 ## Generate multiscale material representations using trained GNN
 
 Similarly, you can generate multi-scale material representations using:
 
 ```bash
+cd ssl
 python get_sl_emb_mat.py  root  --lth_emb "01"  --input_model_file pretrained_model_dir
 ```
 
 The generated atomic representations are saved as `sl_cgcnn_mat_01_embedding_dict.npy`
 
+## Generate other material representations
+
+```bash
+cd ssl
+python get_ofm_mat.py  root 
+```
+or
+
+```bash
+cd ssl
+python get_sine_mat.py  root 
+```
+
+You will get `OFM_mat.npy` and `Sine_mat.npy` respectively.
+
 ## Machine learning pipeline
 
 We can perform a kernel ridge regression on specified property by:
 
- ```bash
+```bash
 cd ml
 python cg_gs.py  --root1 root1_dir --root2 roo2_dir
 ```
