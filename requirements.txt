@@ -1,0 +1,9 @@
+#PyPi
+numpy==1.21.0
+scipy==1.5.2
+matplotlib==3.3.2
+joblib==1.0.1
+dscribe==1.0.0
+ase==3.20.1
+
+

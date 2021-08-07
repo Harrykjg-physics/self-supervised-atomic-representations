@@ -1,5 +1,30 @@
 # Self-supervised atomic representations for material discovery
 
+## Table of Contents
+
+- [Prerequisites ](#Prerequisites)
+- [Train your GNN model with self-supervised learning ](#Train your GNN model with self-supervised learning)
+- [Generate multiscale atomic representations using trained GNN](#Generate multiscale atomic representations using trained GNN)
+- [Generate OFM atomic representations](#Generate OFM atomic representations)
+- [Generate multiscale material representations using trained GNN](#Generate multiscale material representations using trained GNN)
+- [Generate other material representations](#Generate other material representations)
+- [Machine learning pipeline](#Machine learning pipeline)
+
+##  Prerequisites
+
+- [PyTorch](http://pytorch.org)
+- [Pytorch-Geometric](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html)
+- [scikit-learn](http://scikit-learn.org/stable/)
+- [pymatgen](http://pymatgen.org)
+
+The remainder may be installed by:
+
+```bash
+git clone https://github.com/Harrykjg-physics/self-supervised-atomic-representations.git
+cd self-supervised-atomic-representations 
+pip install -r requirements.txt
+```
+
 ## Train your GNN model with self-supervised learning 
 
 The simplest way to train a new model:
@@ -82,7 +107,7 @@ if you only want to generate some atomic representations, such as those with no-
 python get_sl_emb.py  root  --lth_emb "01"  --input_model_file pretrained_model_dir --partial_csv`  xx.csv
 ```
 
-where `csv` file contains the atoms you are interested in
+where `xx.csv` file contains the atoms you are interested in
 
 ## Generate OFM atomic representations
 
