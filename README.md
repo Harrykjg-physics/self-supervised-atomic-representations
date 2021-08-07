@@ -161,13 +161,13 @@ By default, we use 10-fold cross-validation to choose the best hyperparameters.
 
 ## Graph neural networks
 
-It is recommended to perform supervised GNN training using [MatDeepLearn][https://github.com/vxfung/MatDeepLearn]
+It is recommended to perform supervised GNN training using [MatDeepLearn](https://github.com/vxfung/MatDeepLearn)
 
 which intergrates HyperTune, a distributed hyperparameter optimization platform to easily tune your hyperparameters.
 
 ## Other Links
 
-[Crystal Graph Convolutional Neural Networks][https://github.com/txie-93/cgcnn]
+[Crystal Graph Convolutional Neural Networks](https://github.com/txie-93/cgcnn)
 
 
 
