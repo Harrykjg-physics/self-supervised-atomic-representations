@@ -180,7 +180,7 @@ def main():
     parser.add_argument('--mask_rate', type=float, default=0.15,
                         help='dropout ratio (default: 0.15)')
     parser.add_argument('--mask_edge', type=int, default=1,
-                        help='whether to mask edges or not together with atoms')
+                        help='whether to mask edges or not together with atoms(default: 1)')
     parser.add_argument('--output_model_file', type=str, default='', help='filename to output the model')
     parser.add_argument('--model_type', type=str, default="cgcnn", choices=["cgcnn", "gatgnn", "None"])
     parser.add_argument('--seed', type=int, default=0, help="Seed for splitting dataset.")

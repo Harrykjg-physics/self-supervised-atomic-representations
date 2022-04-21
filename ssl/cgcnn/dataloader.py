@@ -1,7 +1,7 @@
 import torch.utils.data
 from torch.utils.data.dataloader import default_collate
 from .batch import BatchMasking
-
+# from .batch import BatchMasking
 
 def collate_fn_DM(data_list):
     return BatchMasking.from_data_list(data_list)

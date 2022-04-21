@@ -33,9 +33,15 @@ parser.add_argument('--partial_csv', type=str, default=None, help='the path to t
 
 args = parser.parse_args(sys.argv[1:])
 
-global all_atom_embedding
 
-all_atom_embedding = {}
+def cos_sim(vector_a, vector_b):
+    vector_a = np.mat(vector_a)
+    vector_b = np.mat(vector_b)
+    num = float(vector_a * vector_b.T)
+    denom = np.linalg.norm(vector_a) * np.linalg.norm(vector_b)
+    sim = num / denom
+    return sim
+
 
 # gpu_id = 0
 # device = torch.device(f'cuda:{gpu_id}' if torch.cuda.is_available() else 'cpu')
@@ -48,7 +54,6 @@ if args.partial_csv is not None:
         id = []
         for i in range(len(id_prop)):
             id.append(id_prop[i][0])
-
 
 dataset = pd.read_csv(f'{args.root}/id_prop.csv', names=['material_ids', 'label'])
 CRYSTAL_DATA = CIF_Dataset(dataset, root_dir=args.root)
@@ -64,6 +69,7 @@ if args.model_type == 'cgcnn':
                   atom_fea_len=args.emb_dim,
                   drop_ratio=args.dropout_ratio,
                   stage='get_emb').to(device)
+
 elif args.model_type == 'gatgnn':
     raiseNotImplementedError("Model Type Not Implemented !!")
 else:
@@ -97,7 +103,12 @@ model.eval()
 
 count = 0
 
+id_cs = {}
+
 for data in loader:
+
+    all_atom_embedding = {}
+
     count += 1
     data = data.to(device)
     batch_cif_ids = dataset.iloc[data.the_idx].material_ids.values
@@ -133,6 +144,16 @@ for data in loader:
                     if uni_atom_name in id:
                         all_atom_embedding[uni_atom_name] = tmp.detach().numpy()
 
-if args.model_type == 'cgcnn':
-    np.save('sl_cgcnn_' + str(args.lth_emb) + '_embedding_dict.npy', material_embedding)
+    if len(all_atom_embedding) > 1:
+        sum_cs = 0
+        sum_count = 0
+        for i in range(len(all_atom_embedding)):
+            for j in range(i + 1, len(all_atom_embedding)):
+                cs = cos_sim(all_atom_embedding[list(all_atom_embedding.keys())[i]],
+                             all_atom_embedding[list(all_atom_embedding.keys())[j]])
+                sum_cs += cs
+                sum_count += 1
+        sum_cs_avg = sum_cs / sum_count
+        id_cs[batch_cif_ids[0]] = sum_cs_avg
 
+        np.save("id_cs.npy", id_cs)
