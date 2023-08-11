@@ -65,7 +65,7 @@ def plot_tsne(xy, y, colors=None, alpha=0.5, figsize=(6, 6), s=35, cmap='viridis
 
 """
 # load non-zero-magmom-atoms
-with open("D:\\learn\\1\\D\\Pycode\\Project\\ts\\id_prop_non_zero_1.csv") as f:
+with open("id_prop_non_zero_1.csv") as f:
     reader = csv.reader(f)
     magmom_data = [row for row in reader]
 mag_atom = []
@@ -107,8 +107,8 @@ for magatom in list(local_envs_recog.keys()):
 np.save("count.npy", count)
 
 """
-count = np.load("C:\\Users\\Harry\\Desktop\\Research_PPT\\Version\\Paper_plot\\count.npy", allow_pickle=True).item()
-local_envs_recog = np.load("C:\\Users\\Harry\\Desktop\\Research_PPT\\Version\\Paper_plot\\local_envs_recog.npy", allow_pickle=True).item()
+count = np.load("count.npy", allow_pickle=True).item()
+local_envs_recog = np.load("local_envs_recog.npy", allow_pickle=True).item()
 
 loc_env_list = list(count.keys())
 print("loc_env_list: ", loc_env_list)
