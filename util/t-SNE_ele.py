@@ -55,7 +55,7 @@ def plot_tsne(xy, y, element_list, figsize=(8, 8), cmap='viridis'):
     """
 
 
-cg_2nd = np.load('C:\\Users\\Harry\\Desktop\\Research_PPT\\Version\\Paper_plot\\sl_elem01.npy', allow_pickle=True).item()
+cg_2nd = np.load('sl_elem01.npy', allow_pickle=True).item()
 
 # ------------------- elements -----------------------
 count = 0
@@ -112,7 +112,7 @@ X_tsne = tsne.fit_transform(X_2nd)
 print("Org data dimension is {}.Embedded data dimension is {}".format(X_2nd.shape[-1], X_tsne.shape[-1]))
 
 x_min, x_max = X_tsne.min(0), X_tsne.max(0)
-X_norm = (X_tsne - x_min) / (x_max - x_min)  # 归一化
+X_norm = (X_tsne - x_min) / (x_max - x_min)  
 
 print("y: ", y.shape)
 plot_tsne(X_norm, y, ele_list_sorted)
